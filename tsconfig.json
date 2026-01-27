@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "noEmitOnError": false,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "src/check_*.ts",
+    "src/diag_*.ts",
+    "src/test_*.ts",
+    "src/db_*.ts",
+    "src/debug_*.ts",
+    "src/inspect_*.ts",
+    "src/verify_*.ts",
+    "src/count_docs.ts",
+    "src/find_fiscal_keys.ts",
+    "src/final_*.ts",
+    "src/fix_*.ts",
+    "src/scripts/test_*.ts"
+  ]
+}
