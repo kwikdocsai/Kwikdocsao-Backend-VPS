@@ -1,0 +1,62 @@
+version: '3.8'
+
+# ============================================
+# Docker Compose para Teste Local
+# ============================================
+# IMPORTANTE: Este arquivo é apenas para TESTES LOCAIS
+# O EasyPanel gerencia containers nativamente
+# ============================================
+
+services:
+  kwikdocs-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: kwikdocs-backend-local
+
+    # Variáveis de ambiente (usar .env file)
+    env_file:
+      - .env
+
+    # Porta
+    ports:
+      - "${AUTH_API_PORT:-5000}:5000"
+
+    # Restart policy
+    restart: unless-stopped
+
+    # Health check
+    healthcheck:
+      test: [ "CMD", "node", "-e", "require('http').get('http://localhost:5000/api/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # Logs
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    # Resources (opcional - ajustar conforme necessário)
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '1'
+    #       memory: 512M
+    #     reservations:
+    #       cpus: '0.5'
+    #       memory: 256M
+
+    # ============================================
+    # INSTRUÇÕES DE USO:
+    # ============================================
+    # 1. Copiar .env.example para .env
+    # 2. Configurar variáveis de ambiente
+    # 3. Executar: docker-compose up -d
+    # 4. Verificar logs: docker-compose logs -f
+    # 5. Testar: curl http://localhost:5000/api/health
+    # 6. Parar: docker-compose down
+    # ============================================
